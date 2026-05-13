@@ -105,8 +105,16 @@ async function login(req , res) {
             message: error.message || error
         });
     };
-}
+};
+
+
+async function logout (req , res) {
+    res.clearCookie("token");
+    res.status(200).json({
+        message: "user logged out successfully"
+    });
+};
 
 
 
-export { register , login};
+export { register , login , logout};
