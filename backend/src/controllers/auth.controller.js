@@ -35,7 +35,7 @@ async function register(req , res) {
         const user = await User.create({
             username,
             email,
-            password,
+            password: encryptedPassword,
             role,
             bio,
             image: url,
@@ -46,7 +46,6 @@ async function register(req , res) {
         const token = jwt.sign({ id: user._id, role }, process.env.JWT_SECRETS, { expiresIn: "30d" });
         const thirtyDays = 30 * 24 * 60 * 60 * 1000;
         res.cookie("token", token, {
-            httpOnly: true,
             maxAge: thirtyDays
         });
 
@@ -66,4 +65,48 @@ async function register(req , res) {
 };
 
 
-export { register };
+async function login(req , res) {
+
+    try {
+
+        const { username, email, password } = req.body;
+
+        const user = await User.findOne({
+            $or: [{ username }, { email }]
+        });
+
+        if (!user) {
+            return res.status(401).json({
+                message: "unauthorized please first register"
+            });
+        };
+
+
+        const isPassword = await bcrypt.compare(password, user.password);
+
+        console.log(password, user.password);
+        console.log(isPassword);
+
+
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRETS, { expiresIn: "30d" });
+        const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+        res.cookie("token", token, {
+            maxAge: thirtyDays,
+        });
+
+
+        res.status(200).json({
+            message: "user logged in successfully"
+        });
+
+    } catch (error) {
+        console.error(`Login error : ${error.message}`);
+        res.status(500).json({
+            message: error.message || error
+        });
+    };
+}
+
+
+
+export { register , login};
