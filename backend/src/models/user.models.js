@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [ true , "username is required" ],
         unique: true,
-        tolowercase: true,
+        lowercase: true,
         trim: true,
         minLenghth: [ 6  , "username must be atleast of 6 characters" ]
     },
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, "email is required"],
-        tolowercase: true,
+        lowercase: true,
         unique: true,
         trim: true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-const user = mongoose.model("user", userSchema);
+const User = mongoose.model("User", userSchema);
 
 
-export { user };
+export { User };
