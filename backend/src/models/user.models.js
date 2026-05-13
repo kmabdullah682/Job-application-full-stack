@@ -1,0 +1,54 @@
+import mongoose from "mongoose";
+
+const userSchema = new mongoose.Schema({
+
+    username: {
+        type: String,
+        required: [ true , "username is required" ],
+        unique: true,
+        tolowercase: true,
+        trim: true,
+        minLenghth: [ 6  , "username must be atleast of 6 characters" ]
+    },
+
+    email: {
+        type: String,
+        required: [true, "email is required"],
+        tolowercase: true,
+        unique: true,
+        trim: true,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+    },
+
+    password: {
+        type: String,
+        required: [true, "Password is required"],
+        minLenghth: [ 8 , "password might need to be at least of 8 characters" ]
+    },
+
+    role: {
+        type: String,
+        enum: ["applicant", "employer"],
+        default: "applicant",
+        required: [ true , "please define your role" ]
+    },
+
+    bio: {
+        type: String,
+    },
+
+    image: {
+        type: String
+    },
+
+    profession : {
+        type: String
+    }
+
+
+}, { timestamps: true });
+
+const user = mongoose.model("user", userSchema);
+
+
+export { user };

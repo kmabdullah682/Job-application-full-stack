@@ -5,7 +5,7 @@ async function connectDB() {
     
     try {
 
-        const db = await mongoose.connect(process.env.MONGODB_URL);
+        const db = await mongoose.connect(process.env.MONGODB_URL , { autoIndex: true });
 
         if (db.connection.readyState = 1) {
             console.log('Connected to Db');
