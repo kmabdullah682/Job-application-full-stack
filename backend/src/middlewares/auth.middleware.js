@@ -56,6 +56,8 @@ async function isUser (req , res , next) {
             });
         };
 
+        req.id = decoded.id;
+
         next();
 
     } catch (error) {
