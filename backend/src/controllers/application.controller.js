@@ -21,7 +21,7 @@ async function apply(req, res) {
         const jobExists = await Job.findById(jobId);
 
         if (!jobExists) {
-            return res.status(400).json({
+            return res.status(404).json({
                 message: "Job doesn't exist"
             });
         };
@@ -30,7 +30,7 @@ async function apply(req, res) {
 
         if (existingApplication) {
             return res.status(400).json({
-                message: "You've already applied to this job. Wait for the resutl"
+                message: "You've already applied to this job. Wait for the result"
             });
         };
 
