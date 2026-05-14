@@ -36,4 +36,35 @@ async function isEmployer (req , res , next) {
 };
 
 
-export { isEmployer };
+async function isUser (req , res , next) {
+    
+    const token = req.cookies.token;
+
+    if (!token) {
+        return res.status(401).json({
+            message: "unauthorized please sign in"
+        });
+    };
+
+    try {
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRETS);
+
+        if (decoded.role !== "applicant") {
+            return res.status(403).json({
+                message: "please sign up as an applicant"
+            });
+        };
+
+        next();
+
+    } catch (error) {
+        return res.status(400).json({
+            message: "Invalid token"
+        });
+    };
+
+}
+
+
+export { isEmployer , isUser };

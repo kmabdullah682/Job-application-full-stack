@@ -48,5 +48,16 @@ async function createJobPost (req , res) {
 };
 
 
+async function getJobs (req , res) {
+  
+    const jobs = await Job.find().limit(30);
 
-export { createJobPost };
+    return res.status(200).json({
+        message: "Job fetched successfully",
+        jobs: jobs
+    });
+};
+
+
+
+export { createJobPost , getJobs };
