@@ -21,7 +21,7 @@ const jobpostSchema = new mongoose.Schema({
     jobType: {
         type: String,
         required: true,
-        enum: ["Hybrid", "Remote", "On-stie"],
+        enum: ["Hybrid", "Remote", "On-site"],
         default: "Remote"
     },
 
@@ -44,6 +44,9 @@ const jobpostSchema = new mongoose.Schema({
 
 
 }, { timestamps: true });
+
+
+jobpostSchema.index({ title: "text", description: "text", category: "text" });
 
 
 const Job = mongoose.model("Job", jobpostSchema);
