@@ -59,5 +59,86 @@ async function getJobs (req , res) {
 };
 
 
+async function editJob (req , res) {
+    
+    try {
 
-export { createJobPost , getJobs };
+        const { title, description, category, salary, location } = req.body;
+        const { jobId } = req.params;
+
+        const update = {};
+
+        if (title) {
+            update.title = title;
+        };
+
+
+        if (description) {
+            update.description = description
+        };
+
+        if (category) {
+            update.category = category
+        };
+
+        if (salary) {
+            update.salary = salary
+        };
+
+        if (location) {
+            update.location = location
+        };
+
+
+        const job = await Job.findByIdAndUpdate({ _id: jobId , employer: req.userId },  update , { new: true } );
+        
+        if (!job) {
+            return res.status(404).json({
+                message: "This job does not exists"
+            });
+        };
+
+
+        return res.status(200).json({
+            message: "job updated successfully"
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "internal server problem"
+        });
+    };
+
+};
+
+
+async function deleteJob (req , res) {
+    
+    try {
+
+        const { jobId } = req.params;
+
+        const deleteJob = await Job.findOneAndDelete({ _id: jobId, employer: req.userId });
+        
+
+        if (!deleteJob) {
+            return res.status(404).json({
+                message: "no job exists on this credential"
+            });
+        };
+
+        res.status(200).json({
+            message: "job post delete succesfully"
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "internal server error"
+        });
+    };
+
+}
+
+
+
+export { createJobPost, getJobs, editJob , deleteJob };
