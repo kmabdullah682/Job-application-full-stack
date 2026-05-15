@@ -72,7 +72,7 @@ async function getAllApplications (req , res) {
 
         const jobIds = createdJobPosts.map((job) => job._id);
 
-        const applications = await Application.find({ jobId: { $in: jobIds }}).sort({ createdAt: -1 }).populate("seekerId" , "username email iamge").populate("jobId" , "title description");
+        const applications = await Application.find({ jobId: { $in: jobIds }}).sort({ createdAt: -1 }).populate("seekerId" , "username email image").populate("jobId" , "title description");
         
 
         if (!applications) {
