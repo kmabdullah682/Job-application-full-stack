@@ -97,4 +97,68 @@ async function getAllApplications (req , res) {
 };
 
 
-export { apply, getAllApplications };
+async function updateStatus(req, res) {
+    
+    try {
+
+        const { status } = req.body;
+        const { applicationId } = req.params;
+
+        if (!applicationId) {
+            return res.status(400).json({
+                message: "Please provide your jobId to update the status"
+            });
+        };
+
+        const updatedApplication = await Application.findByIdAndUpdate(applicationId ,
+            { status: status },
+            { new: true }
+        );
+
+        if (!updatedApplication) {
+            return res.status(404).json({
+                message: "Application not found"
+            });
+        };
+
+        return res.status(200).json({
+            message: "Application status updated successfully"
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "internal server error"
+        });
+    };
+
+};
+
+async function showApplicationToApplicant (req , res) {
+    
+    try {
+
+        const applicantId = req.id;
+
+        const appliedJobs = await Application.find({ seekerId: applicantId }).select("-seekerId -jobId").sort({ createdAt: -1 });
+
+        if (appliedJobs.length === 0) {
+            return res.status(404).json({
+                message: "you did not applied to any job"
+            });
+        };
+
+        return res.status(200).json({
+            message: "Applications fetched successfully",
+            appliedJobs
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "internal server Error"
+        });
+    };
+
+}
+
+
+export { apply, getAllApplications , updateStatus , showApplicationToApplicant };
