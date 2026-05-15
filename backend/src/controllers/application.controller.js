@@ -161,4 +161,33 @@ async function showApplicationToApplicant (req , res) {
 }
 
 
-export { apply, getAllApplications , updateStatus , showApplicationToApplicant };
+async function withdrawApplication (req , res) {
+    
+    try {
+
+        const applicantId = req.id;
+        const { jobId } = req.params;
+
+        const application = await Application.findOneAndDelete({ seekerId: applicantId, jobId: jobId });
+        
+
+        if (!application) {
+            return res.status(400).json({
+                message: "You have not applied on this job"
+            });
+        };
+
+        res.status(200).json({
+            message: "Application deleted successfully"
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error"
+        });
+    };
+
+};
+
+
+export { apply, getAllApplications , updateStatus , showApplicationToApplicant , withdrawApplication };
