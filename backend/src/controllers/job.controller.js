@@ -141,4 +141,65 @@ async function deleteJob (req , res) {
 
 
 
-export { createJobPost, getJobs, editJob , deleteJob };
+async function bookMarkJob (req , res) {
+    
+    try {
+
+        const applicantId = req.id;
+        const { jobId } = req.params;
+
+
+        if (!jobId) {
+            return res.status(404).json({
+                message: "Job not found"
+            });
+        };
+
+
+        const user = await User.findById(applicantId);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        };
+
+
+        const isAlreadyBookMarked = await user.savedJobs.includes(jobId);
+
+        if (isAlreadyBookMarked) {
+            await User.findByIdAndUpdate(applicantId, {
+                $pull: { savedJobs: jobId }
+            });
+
+
+            return res.status(200).json({
+                message: "Job un-bookmarked successfully",
+                isBookmarked: false
+            });
+        } else {
+            
+            await User.findByIdAndUpdate(applicantId, {
+                $push: { savedJobs: jobId }
+            })
+
+            return res.status(200).json({
+                message: "job bookmarked successfully",
+                isBookmarked: true
+            });
+        };
+
+    } catch (error) {
+
+        console.error(error.message);
+
+        return res.status(500).json({
+            message: "internal server error"
+        });
+    };
+
+};
+
+
+
+export { createJobPost, getJobs, editJob , deleteJob , bookMarkJob };

@@ -4,11 +4,11 @@ const userSchema = new mongoose.Schema({
 
     username: {
         type: String,
-        required: [ true , "username is required" ],
+        required: [true, "username is required"],
         unique: true,
         lowercase: true,
         trim: true,
-        minLength: [ 6  , "username must be atleast of 6 characters" ]
+        minLength: [6, "username must be atleast of 6 characters"]
     },
 
     email: {
@@ -23,14 +23,14 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Password is required"],
-        minLength: [ 8 , "password might need to be at least of 8 characters" ]
+        minLength: [8, "password might need to be at least of 8 characters"]
     },
 
     role: {
         type: String,
         enum: ["applicant", "employer"],
         default: "applicant",
-        required: [ true , "please define your role" ]
+        required: [true, "please define your role"]
     },
 
     bio: {
@@ -41,9 +41,16 @@ const userSchema = new mongoose.Schema({
         type: String
     },
 
-    profession : {
+    profession: {
         type: String
-    }
+    },
+
+    savedJobs: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Job"
+        }
+    ]
 
 
 }, { timestamps: true });
