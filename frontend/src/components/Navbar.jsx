@@ -1,6 +1,5 @@
 import { useState } from "react";
 import logo from "../../public/final_logo.png"
-import { MoveRight } from "lucide-react"
 
 const Navbar = () => {
 
@@ -29,9 +28,8 @@ const Navbar = () => {
                       }) }
                   </ul>
               </div>
-              <button type="btn" className="bg-[#006C49] w-45 px-3 py-4 h-11 rounded-xl flex items-center gap-9 cursor-pointer duration-500 transition-all hover:translate-x-3">
-                  <span className="font-bold text-white whitespace-nowrap">Get Started</span>
-                  <span className="bg-white w-8 h-7.5 rounded-full flex items-center justify-center"><MoveRight /></span>
+              <button type="btn" className="bg-[#006C49] w-30 px-3 py-4 h-11 rounded-xl flex items-center gap-9 cursor-pointer duration-500 transition-all hover:translate-x-3 justify-center text-md font-bold text-white">
+                  Get Started
               </button>
         </div>
     </nav>
