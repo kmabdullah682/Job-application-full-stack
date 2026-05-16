@@ -1,0 +1,41 @@
+import { useState } from "react";
+import logo from "../../public/final_logo.png"
+import { MoveRight } from "lucide-react"
+
+const Navbar = () => {
+
+    const links = ["Home", "Features", "About Us", "Contact Us"];
+    const [isActive, setIsActive] = useState("Home");
+    
+
+  return (
+    <nav className="ml-10 fixed mt-10">
+        <div className="flex items-center  gap-40">
+              <img src={logo} alt="logo" className="h-10 w-auto select-none object-contain cursor-pointer" />
+              <div className="bg-[#FAFAFA] h-13 w-150 border border-gray-400 rounded-full px-5 py-2">
+                  <ul className="flex items-center justify-between">
+                      {links.map((link) => {
+                          
+                          const safeHash = link.toLowerCase().replace(/\s+/g, "-");
+
+                          return (
+                              <li onClick={() => setIsActive(link)} className={`cursor-pointer px-3 rounded-full transition-all duration-300 ${
+                                isActive === link
+                                ? "px-4 py-1.5 rounded-full text-sm transition-colors bg-white border border-zinc-200 font-medium text-zinc-800 hover:text-zinc-600 "
+                                : "text-gray-500 hover:text-black font-medium"
+                                  } duration-500 transition-colors`}>
+                                  <a href={`#${safeHash}`}>{link}</a></li>
+                          )
+                      }) }
+                  </ul>
+              </div>
+              <button type="btn" className="bg-[#006C49] w-45 px-3 py-4 h-11 rounded-xl flex items-center gap-9 cursor-pointer duration-500 transition-all hover:translate-x-3">
+                  <span className="font-bold text-white whitespace-nowrap">Get Started</span>
+                  <span className="bg-white w-8 h-7.5 rounded-full flex items-center justify-center"><MoveRight /></span>
+              </button>
+        </div>
+    </nav>
+  )
+}
+
+export default Navbar

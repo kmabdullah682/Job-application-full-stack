@@ -1,7 +1,10 @@
+import Navbar from "./components/Navbar"
 
 const App = () => {
   return (
-    <main>App</main>
+    <main className="min-h-screen w-full relative">  
+        <Navbar />
+    </main>
   )
 }
 
