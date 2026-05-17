@@ -8,7 +8,7 @@ const Navbar = () => {
     
 
   return (
-    <nav className="ml-10 fixed mt-10">
+    <nav className="ml-10 fixed mt-10 z-10">
         <div className="flex items-center  gap-40">
               <img src={logo} alt="logo" className="h-10 w-auto select-none object-contain cursor-pointer" />
               <div className="bg-[#FAFAFA] h-13 w-150 border border-gray-400 rounded-full px-5 py-2">
