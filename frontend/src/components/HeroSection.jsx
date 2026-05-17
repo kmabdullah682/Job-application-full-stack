@@ -1,4 +1,4 @@
-
+import { Search , CircleDollarSign } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -11,10 +11,16 @@ const HeroSection = () => {
           <span className="text-center text-[#68788F]">The next-generation job portal for perfect applicants and high-growth companies.<br /> Clean, clear, and focused on your professional growth.
           </span>
           
-          <div className="bg-white shadow-2xl w-150 h-20 rounded-xl mt-10 px-6 py-2 flex items-center gap-5">
-              <input type="text" className="bg-white outline-none border-b border-gray-200" placeholder="Job Keyword , Title"/>
-              <input type="text" className="bg-white outline-none border-b border-gray-200" placeholder="Min salary" />
-              <button className="bg-[#00885D] h-3/4 w-full rounded-xl text-lg font-bold text-white cursor-pointer transition-all duration-500 hover:bg-[#006C49]">Search Jobs</button>
+          <div className="bg-white shadow-2xl w-150 h-20 rounded-xl mt-10 px-6 py-2 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <Search size={17} className="text-gray-700"/>
+                <input type="text" className="bg-white outline-none border-none" placeholder="Job Keyword , Title"/>
+              </div>
+              <div className="flex items-center gap-2">
+                <CircleDollarSign  size={17} className="text-gray-700"/>
+                <input type="text" className="bg-white outline-none border-none" placeholder="Minimum salary"/>
+              </div>
+              <button className="bg-[#00885D] px-4 h-3/4 w-full rounded-xl whitespace-nowrap font-bold text-white cursor-pointer transition-all duration-500 hover:bg-[#006C49]">Search Jobs</button>
          </div>
 
     </section>
