@@ -2,7 +2,7 @@ import { SearchCheck , LayoutDashboard , MousePointerClick , ChartNoAxesCombined
 
 const Features = () => {
   return (
-    <section className="h-[130vh] bg-[#ffffff] p-20">
+    <section id="Features" className="h-[130vh] bg-[#ffffff] p-20">
       <div className="flex items-center gap-6 flex-col">
         <h3 className="capitalize text-center text-3xl font-semibold text-[#213145]">powerful featuring for modern hiring</h3>
         <p className="text-[#87948C]">Everything you need to navigate the modern job market with clarity.</p>

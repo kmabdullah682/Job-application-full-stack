@@ -2,7 +2,7 @@ import { Search , CircleDollarSign } from "lucide-react";
 
 const HeroSection = () => {
   return (
-      <section className="flex items-center justify-center flex-col gap-7 bg-linear-to-b from-white to-[#EAF1FF] h-[130vh]">
+      <section id="Home" className="flex items-center justify-center flex-col gap-7 bg-linear-to-b from-white to-[#EAF1FF] h-[130vh]">
           <div className="bg-[#6FFBBE] w-80 tracking-wide rounded-full px-2 py-1 text-green-900 font-semibold uppercase text-center">Transform your carrer journey</div>
           <div className="flex flex-col gap-4">
                 <h1 className="text-black font-bold capitalize text-5xl">Where ambition meets</h1>

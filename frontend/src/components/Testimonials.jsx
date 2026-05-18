@@ -2,7 +2,7 @@ import { BadgeCheck  } from "lucide-react"
 
 const Testimonials = () => {
   return (
-      <section className="h-[205vh]  bg-[#F8F9FF] p-20">
+      <section id="Testimonials" className="h-[205vh]  bg-[#F8F9FF] p-20">
           <div className="flex items-center flex-col gap-10 place-self-center">
               <div className="bg-[#6FFBBE] px-3 h-10 w-auto py-1 rounded-2xl text-[#006C49] flex items-center gap-2">
                   <BadgeCheck />

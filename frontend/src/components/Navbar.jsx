@@ -5,6 +5,22 @@ const Navbar = () => {
 
     const links = ["Home", "Features", "Testimonials"];
     const [isActive, setIsActive] = useState("Home");
+
+    const handleSmoothScroll = (e, link) => {
+        e.preventDefault();
+
+        const targetId = link;
+        const targetElement = document.getElementById(targetId);
+
+
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        };
+
+    };
     
 
   return (
@@ -23,7 +39,7 @@ const Navbar = () => {
                                 ? "px-4 py-1.5 rounded-full text-sm transition-colors bg-white border border-zinc-200 font-medium text-zinc-800 hover:text-zinc-600 "
                                 : "text-gray-500 hover:text-black font-medium"
                                   } duration-500 transition-colors`}>
-                                  <a href={`#${safeHash}`}>{link}</a></li>
+                                  <a href={`#${safeHash}`} onClick={(e) => handleSmoothScroll(e, link)} >{link}</a></li>
                           )
                       }) }
                   </ul>
