@@ -3,15 +3,15 @@ import logo from "../../public/final_logo.png"
 
 const Navbar = () => {
 
-    const links = ["Home", "Features", "About Us", "Contact Us"];
+    const links = ["Home", "Features", "Testimonials"];
     const [isActive, setIsActive] = useState("Home");
     
 
   return (
-    <nav className="ml-10 fixed mt-10 z-10">
+    <nav className="ml-25 fixed mt-10 z-10">
         <div className="flex items-center  gap-40">
               <img src={logo} alt="logo" className="h-10 w-auto select-none object-contain cursor-pointer" />
-              <div className="bg-[#FAFAFA] h-13 w-150 border border-gray-400 rounded-full px-5 py-2">
+              <div className="bg-[#FAFAFA] h-13 w-130 border border-gray-400 rounded-full px-5 py-2">
                   <ul className="flex items-center justify-between">
                       {links.map((link) => {
                           
@@ -28,7 +28,7 @@ const Navbar = () => {
                       }) }
                   </ul>
               </div>
-              <button type="btn" className="bg-[#006C49] w-30 px-3 py-4 h-11 rounded-xl flex items-center gap-9 cursor-pointer duration-500 transition-all hover:translate-x-3 justify-center text-md font-bold text-white">
+              <button type="btn" className="bg-[#006C49] w-30 px-3 py-4 h-11 rounded-xl  flex items-center gap-9 cursor-pointer duration-500 transition-all hover:translate-x-3 hover:bg-green-600 justify-center text-md font-bold text-white">
                   Get Started
               </button>
         </div>
