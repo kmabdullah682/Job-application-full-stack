@@ -1,9 +1,10 @@
 import { useState } from "react";
+import axios from "axios";
 
 const LoginPage = () => {
-  // Only two fields needed for login!
+  
   const [formData, setFormData] = useState({
-    identifier: "", // This will hold either the username or the email
+    identifier: "", 
     password: "",
   });
 
@@ -17,25 +18,37 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Smart logic to figure out if they typed an email or a username
     const isEmail = formData.identifier.includes("@");
     
-    // Build the exact payload your backend auth.controller expects
     const loginPayload = {
       password: formData.password,
       ...(isEmail ? { email: formData.identifier } : { username: formData.identifier })
     };
 
     console.log("Ready to send to backend:", loginPayload);
+
+    try {
+
+      const response = await axios.post("http://localhost:3000/api/auth/login", loginPayload, {
+      headers: {
+        "Content-Type": "application/json",
+        withCredentials: true,
+      }
+    });
+
+    if (response.status === 200) {
+      console.log("Login successful! Response data:", response.data);
+    }
+
+    } catch (error) {
+      console.error("Login failed:", error.response ? error.response.data : error.message);
+      alert("Login failed: " + (error.response ? error.response.data.message : error.message));
+    }
     
-    // Example Axios Call:
-    // axios.post("http://localhost:3000/api/auth/login", loginPayload, {
-    //   headers: { "Content-Type": "application/json" },
-    //   withCredentials: true // CRITICAL FOR JWT COOKIES!
-    // });
+    
   };
 
   return (

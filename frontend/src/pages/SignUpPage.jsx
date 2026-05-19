@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setSignUpForm } from "../app/features/authSlice";
+import { setAuthUser } from "../app/features/authSlice";
 import axios from "axios";
 
 const SignUpPage = () => {
@@ -64,7 +64,7 @@ const SignUpPage = () => {
       console.log("Backend response:", response.data);
 
       if (response.status === 201) {
-        dispatch(setSignUpForm(response.data.user));
+        dispatch(setAuthUser(response.data.user));
         navigate("/login");
       }
 
