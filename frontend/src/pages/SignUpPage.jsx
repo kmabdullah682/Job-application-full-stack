@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSignUpForm } from "../app/features/authSlice";
+import axios from "axios";
 
 const SignUpPage = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
     role: "applicant", // Added role with a default value, removed confirmPassword
-    agreeTerms: false,
-    newsletter: false,
   });
 
   // New states for the image file and the live preview URL
@@ -18,42 +23,55 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [e.target.name]: value
     }));
+
   };
 
-  // Handler specifically for the hidden file input
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
-      // Create a temporary local URL so the user can see their selected image
       setImagePreview(URL.createObjectURL(file)); 
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // 1. Pack the data
     const submitData = new FormData();
     submitData.append("username", formData.username);
     submitData.append("email", formData.email);
     submitData.append("password", formData.password);
-    submitData.append("role", formData.role); // Now pulls dynamically from your dropdown!
+    submitData.append("role", formData.role); 
     
+    // FIXED: Re-added the image attachment!
     if (imageFile) {
       submitData.append("image", imageFile);
     }
 
-    console.log("Ready to send to backend:", Object.fromEntries(submitData));
-    
-    // Example:
-    // axios.post("http://localhost:3000/api/auth/register", submitData, {
-    //   headers: { "Content-Type": "multipart/form-data" }
-    // });
+    try {
+      const response = await axios.post("http://localhost:3000/api/auth/register", submitData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true
+      });
+
+      console.log("Backend response:", response.data);
+
+      if (response.status === 201) {
+        dispatch(setSignUpForm(response.data.user));
+        navigate("/login");
+      }
+
+    } catch (error) {
+      console.error("Registration failed:", error.response?.data?.message || error.message);
+      alert("Registration failed: " + (error.response?.data?.message || error.message));
+    }
   };
 
   return (
