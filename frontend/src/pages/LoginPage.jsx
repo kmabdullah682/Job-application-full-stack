@@ -1,8 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     identifier: "", 
     password: "",
@@ -41,6 +44,7 @@ const LoginPage = () => {
 
     if (response.status === 200) {
       console.log("Login successful! Response data:", response.data);
+      navigate("/dashboard");
     }
 
     } catch (error) {

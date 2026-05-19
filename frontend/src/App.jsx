@@ -6,6 +6,7 @@ import Testimonials from "./components/Testimonials"
 import { Route, Routes } from "react-router-dom"
 import SignUpPage from "./pages/SignUpPage"
 import LoginPage from "./pages/LoginPage"
+import Dashboard from "./pages/Dashboard"
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
 
       <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       
     </Routes>
   )
