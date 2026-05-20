@@ -1,10 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAuthUser } from "../app/features/authSlice";
 
 const LoginPage = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     identifier: "", 
@@ -43,8 +46,9 @@ const LoginPage = () => {
     });
 
     if (response.status === 200) {
-      console.log("Login successful! Response data:", response.data);
-      navigate("/dashboard");
+        console.log("Login successful! Response data:", response.data);
+        dispatch(setAuthUser(response.data.user));  
+        navigate("/dashboard");
     }
 
     } catch (error) {
